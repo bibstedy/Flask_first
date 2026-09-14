@@ -1,4 +1,4 @@
-DROP TABLE meinmenu;
+DROP TABLE mainmenu;
 
 CREATE TABLE mainmenu(
     id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -6,5 +6,12 @@ CREATE TABLE mainmenu(
     url TEXT NOT NULL
 );
 
-INSERT INTO meinmenu (name, url)
+INSERT INTO mainmenu (name, url)
 VALUES ('Добавить статью', 'add_article');
+
+CREATE TABLE IF NOT EXISTS posts (
+id integer PRIMARY KEY AUTOINCREMENT,
+title text NOT NULL,
+text text NOT NULL,
+time integer NOT NULL
+);
