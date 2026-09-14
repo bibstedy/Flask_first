@@ -20,6 +20,11 @@
 Отображаются благодаря for и заданным параметрам через лист словарей -->
 <li><a href="{{m.url}}">{{m.name}}</a></li>
 {%endfor-%}
+
+{% for m in db_menu -%}
+<li><a href="{{m['url']}}">{{m['name']}}</a></li>
+{%endfor-%}
+
 </ul>
 {%endblock mainmenu-%}
 <div class="clear"></div>

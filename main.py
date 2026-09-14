@@ -1,22 +1,30 @@
+import sqlite3
 import os
+from bd_config import get_db
+from FDataBase import FDataBase
 from dotenv import load_dotenv
 from flask import Flask, render_template, url_for, request, flash, session, redirect, abort
+
 
 app = Flask(__name__)
 
 load_dotenv()
-SECRET_KEY = os.getenv('SECRET_KEY')
+app.config['SECRET_KEY'] = os.getenv('SECRET_KEY')
 
-menu = [{"name": "Установка", "url": "install-flask"},
-        {"name": "Первое приложение", "url": "first-app"},
-        {"name": "Обратная связь", "url": "contact"}]
+menu = []
+@app.context_processor
+def inject_menu():
+    db = get_db()
+    dbase = FDataBase(db)
+    db_menu = dbase.getMenu()
+
+    return {'db_menu': db_menu}
 
 @app.route('/index')
 @app.route('/')
 def index():
-    # функция url_for - генерирует URL адрес по имени функции обработчика
     print(url_for('index'))
-    return render_template('index.html',  menu=menu)
+    return render_template('index.html', menu=menu)
 
 # @app.route("/url/<variable>") - шаблон динамического URL
 @app.route("/profile/<path:username>")
